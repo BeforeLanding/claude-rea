@@ -20,6 +20,7 @@ claude-re 停在“字符串命中、函数 xref 为 0”这一层：Claude Code
 | [docs/05-mcp-agents-skills-plugins.md](docs/05-mcp-agents-skills-plugins.md) | MCP 传输与命名、内置子代理、内置 Skill、插件、Workflow 工具 |
 | [docs/06-config-telemetry-betas.md](docs/06-config-telemetry-betas.md) | 环境变量、`tengu_*` 遥测事件、API beta 头、CLI 子命令 |
 | [docs/07-vs-claude-re.md](docs/07-vs-claude-re.md) | 与 claude-re 的方法对比、本仓库的边界与未做事项 |
+| [docs/08-version-diff-2.1.311-to-2.1.319.md](docs/08-version-diff-2.1.311-to-2.1.319.md) | 版本差分：stable 2.1.311 → latest 2.1.319（Bun 运行时升级、REPL/Code Mode、7 个 Artifact Skill 下线、特性开关轮换） |
 
 | 证据 | 内容 |
 |------|------|
@@ -33,6 +34,8 @@ claude-re 停在“字符串命中、函数 xref 为 0”这一层：Claude Code
 | `evidence/beta-headers.txt` | 代码中出现的日期型 API beta 标识 |
 | `evidence/cli-runtime.txt` | `--version` / `--help` / `mcp --help` / `plugin --help` 实跑输出 |
 | `evidence/rea-local-patch.diff` | 对 REA 的一行本地补丁 |
+| `evidence/facts-311.json` / `facts-319.json` / `diff-311-319.json` | 两个版本的可比事实集合及其集合差 |
+| `evidence/module-index-311.tsv` / `cli-runtime-311.txt` | 2.1.311 的模块索引与 CLI 输出 |
 | `scripts/` | 读 `.bun` 段的小脚本、生成工具属性表的脚本、复现脚本 |
 
 ## 一页结论
@@ -45,6 +48,7 @@ claude-re 停在“字符串命中、函数 xref 为 0”这一层：Claude Code
 6. **上下文管理是多层的**：主动 auto-compact（阈值可被 `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` 压低）、按时间清理旧工具结果的 microcompact、等 API 报 prompt-too-long 再压缩的 reactive 模式、空闲压缩（idle compact）、局部压缩（partial compact）。同时用到 API 侧的 `clear_tool_uses_20250919`、`clear_thinking_20251015`、`compact_20260112` 三种上下文编辑策略。
 7. **Hook 事件有 33 个**：其中包括 `UserPromptExpansion`、`PreModelSwitch` / `PostModelSwitch`、`DirectoryAdded`、`MessageDisplay` 等。Hook 类型有 `command / prompt / agent / http / mcp_tool` 五种，另有 SDK 内部用的 `callback / function`。
 8. **大量“旁路查询”**：除主对话外，还有 34 种 `querySource`，例如会话标题生成、记忆提取、auto mode 分类与自我批评、工具调用摘要、提示建议、Artifact 评论分诊等，（推断）每种都是一次独立的模型调用。
+9. **11 天的版本差分**（2.1.311 → 2.1.319）：CLI、hook 事件、权限模式都没变；变化在内部——Bun 运行时升级（文件 +46 MB，其中原生代码约 +33 MB）、新增实验性的 `REPL`（Code Mode，用 JS 程序化调用工具，脚本里每次工具调用仍单独过权限链）、下线 7 个 Artifact 内置 Skill、遥测事件 +341/−55（约四分之三是特性开关代号）。见 08。
 
 ## 版权与使用边界
 

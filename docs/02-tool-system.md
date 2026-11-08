@@ -89,6 +89,8 @@
 | StructuredOutput | return the final response as structured JSON | 1e5 | — | — | | never |
 | EndConversation | end the conversation — only for sustained user abuse … | 1e4 | — | — | ✓ | never |
 
+2.1.319 相对 2.1.311 新增了 4 个工具：`REPL`（别名 `Eval`，“execute JavaScript with programmatic tool access”，实验性 Code Mode）、`WrapUp`、`ReadWidgetContext`、`SendToProjectContext`，见 [08 文档](08-version-diff-2.1.311-to-2.1.319.md)。
+
 另外有 `Read`、`Write`、`EnterPlanMode`、`Brief` 的名字常量（**观测**），但它们的定义没有按上面的模式写，脚本没抽到属性。Agent 工具还有一个别名常量（**推断**：为兼容保留的旧名 `Task`）。
 
 ## 4. 延迟加载与 ToolSearch

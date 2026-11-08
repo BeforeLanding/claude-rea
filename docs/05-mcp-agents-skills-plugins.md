@@ -85,9 +85,19 @@ userConfig 6 · statusLine 6 · mods 6 · channels 6
 
 `plugin --help` 里的子命令有 `init|new`（脚手架）、`eval`（跑 `case.yaml` 评测，对应旁路查询 `plugin_eval_judge` / `plugin_eval_mock`）、`configure`、`details`、`prune|autoremove`（清掉自动装的依赖）、`marketplace` 等，见 [`evidence/cli-runtime.txt`](../evidence/cli-runtime.txt)。
 
-## 5. Workflow 工具：用确定性 JS 编排子代理
+## 5. Workflow 工具与 REPL（Code Mode）
 
-`Workflow`（别名 `RunWorkflow`）的 searchHint 是 “orchestrate subagents with deterministic JavaScript workflow”。从打包的类型声明能看出它的运行时 API（**观测**，只列名字）：
+两个工具都让模型写 JavaScript，但用途不同。
+
+### 5.1 Workflow：确定性编排子代理
+
+`Workflow`（别名 `RunWorkflow`）的 searchHint 是 “orchestrate subagents with deterministic JavaScript workflow”。相关遥测：`tengu_workflow_launched`、`_phase_completed`、`_agent_cap_exceeded`、`_budget_cap_exceeded`、`_agent_stall_retries`、`_schema_lint_enforce`、`_journal_started_hit_respawn` 等。
+
+**推断**：编排逻辑写成脚本，因此是确定性的、可重放的（有 journal），并设有代理数量上限和预算上限。
+
+### 5.2 REPL / Code Mode：程序化调用工具（2.1.319 新增，实验性）
+
+`REPL`（别名 `Eval`，用户可见名 “Code Mode (experimental)”）的 searchHint 是 “execute JavaScript with programmatic tool access”。它的运行时 API 来自打包的类型声明（**观测**，只列名字）：
 
 | 声明文件 | 暴露的名字 |
 |---------|-----------|
@@ -95,9 +105,7 @@ userConfig 6 · statusLine 6 · mods 6 · channels 6
 | `core.bash.sync.d.ts` 等 4 个 | `edit`、`write`、`file`、`sleep`、`preview`、`log`、`self`、定时器、`atob` / `btoa`、`searchTools`、`describeTool` |
 | prelude | `team.prelude.js`、`file.prelude.js`、`running.prelude.js`、`shell.prelude.js` |
 
-相关遥测：`tengu_workflow_launched`、`_phase_completed`、`_agent_cap_exceeded`、`_budget_cap_exceeded`、`_agent_stall_retries`、`_schema_lint_enforce`、`_journal_started_hit_respawn` 等。
-
-**推断**：Workflow 让模型写一段 JS 脚本，用 `spawnContext` 并行开子代理、拿到句柄、读取成本，由脚本决定控制流。这样编排逻辑是确定性的、可重放的（有 journal），不靠模型每一步临场决定，同时有代理数量上限和预算上限。
+> **更正**：本文初稿把上面这些声明算在 Workflow 名下。做版本差分时发现，它们只被 REPL 所在的 chunk（及其专用加载器）引用，而且全是 2.1.319 新增的。详见 [08 文档 §3.2](08-version-diff-2.1.311-to-2.1.319.md#32-重点repl--code-mode)。
 
 ## 6. 团队 / 多代理
 
