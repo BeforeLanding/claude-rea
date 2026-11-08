@@ -1,0 +1,12 @@
+diff --git a/src/artifacts/BunStandaloneArtifactReader.ts b/src/artifacts/BunStandaloneArtifactReader.ts
+index 8eb1d90..201febe 100644
+--- a/src/artifacts/BunStandaloneArtifactReader.ts
++++ b/src/artifacts/BunStandaloneArtifactReader.ts
+@@ -256,6 +256,7 @@ export class BunStandaloneArtifactReader implements ArtifactReader {
+       for (const region of REGIONS) {
+         const range = regionRange(module, region);
+         if (range === null) continue;
++        if (region === "bytecode") continue; // local patch: Claude Code shares one bytecode blob across all modules
+         declaredPlaintext += BigInt(range.length);
+         if (declaredPlaintext > expansionBudget)
+           throw new ArtifactReaderFailure(

@@ -1,0 +1,151 @@
+{
+ "summary": {
+  "evidence_id": "ev_dfcf0e65f89160f1069182dbe4615c77b72ebb5a06c6c92a3ee26e6b3cadea40",
+  "subject": {
+   "name": "claude.exe",
+   "digest": {
+    "sha256": "2e055732c9d03d22700d9046251a8370b673607bfcc9e4d16a1b0e8fb1345cbd"
+   },
+   "local_path": "D:\\Agent\\claude-rea-work\\target\\win32-x64\\package\\claude.exe",
+   "format": "bun-standalone",
+   "architecture": null
+  },
+  "provider": {
+   "id": "rea-analysis-view",
+   "name": "REA analysis view projection",
+   "version": "1"
+  },
+  "analysis_profile": null,
+  "predicate_type": "rea.analysis-view",
+  "operation": "inspect_analysis_view",
+  "parameters": {
+   "parent_evidence_id": "ev_455ed5f47bccb9374a31cd0994a167a5b70593d4bf05334498cee425d415af35",
+   "view": {
+    "kind": "summary"
+   }
+  },
+  "raw_result": null,
+  "normalized_result": {
+   "kind": "summary",
+   "view": {
+    "kind": "summary"
+   },
+   "parent_evidence_id": "ev_455ed5f47bccb9374a31cd0994a167a5b70593d4bf05334498cee425d415af35",
+   "parent_operation": "inspect_artifact",
+   "parent_digest": "455ed5f47bccb9374a31cd0994a167a5b70593d4bf05334498cee425d415af35",
+   "view_digest": "af8ab5a218de46c75e4cf36466c4760844acb08c3ecc3ee197f94cb7187d8c05",
+   "artifact": {
+    "path": "D:\\Agent\\claude-rea-work\\target\\win32-x64\\package\\claude.exe",
+    "sha256": "2e055732c9d03d22700d9046251a8370b673607bfcc9e4d16a1b0e8fb1345cbd"
+   },
+   "coverage": {
+    "status": "complete-within-view",
+    "examined": 9378,
+    "total": 9378,
+    "next_offset": null,
+    "exhausted": true
+   },
+   "limitations": [
+    "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics."
+   ],
+   "unknowns": [
+    "Inventory does not establish application runtime behavior or complete format-specific analysis."
+   ],
+   "summary": {
+    "source_coverage": {
+     "scope": "container-entries",
+     "status": "complete"
+    },
+    "manifest": {
+     "manifest_id": "agm_14ed0df080a1ecff6c3d566ddc19aaaf41e8410f687c5c1c1546232b377afabd",
+     "root_artifact_id": "art_ddb0d35ee8636150fa679c08eb68e1fc295c7ef0d35e612e75cd5888d49b8912",
+     "root_sha256": "2e055732c9d03d22700d9046251a8370b673607bfcc9e4d16a1b0e8fb1345cbd",
+     "root_format": "bun-standalone",
+     "graph_sha256": "2423a61b6abdce24ebf1f1b34b683833c9c8e9b297069f0029db469c7b8bbe1e",
+     "node_count": 3121,
+     "occurrence_count": 3129,
+     "edge_count": 3128
+    },
+    "root_format_metadata": {
+     "kind": "bun-standalone",
+     "layout_revision": "bun-1.3.9",
+     "carrier": "pe-section",
+     "payload_offset": 155313160,
+     "payload_length": 189483224,
+     "module_count": 3128,
+     "entry_point_id": 7,
+     "entry_point_source_name": "B:/~BUN/root/cli",
+     "entry_point_logical_path": "bun-modules/7",
+     "compile_exec_argv": "--zero-fill-buffers",
+     "compile_exec_argv_hex": null,
+     "flags": 15359
+    },
+    "available_counts": {
+     "nodes": 3121,
+     "occurrences": 3129,
+     "edges": 3128,
+     "integrity_contradictions": 0
+    },
+    "observed_entry_kind_counts": {
+     "file": 3129,
+     "directory": 0,
+     "symlink": 0,
+     "slice": 0
+    },
+    "source_complete": true,
+    "inventory_evidence_ids": [
+     "ev_93be3d5661d060ec3ced837698fecef1165d007337bb38f5280b911732737992"
+    ],
+    "inspection": {
+     "coverage": {
+      "status": "complete-within-substeps",
+      "substeps_completed": 1,
+      "observations_retained": 1,
+      "observations_omitted": 0,
+      "hypotheses_retained": 0,
+      "hypotheses_omitted": 0,
+      "unexplored_branches_retained": 1,
+      "unexplored_branches_omitted": 0,
+      "next_probes_retained": 1,
+      "next_probes_omitted": 0
+     },
+     "unexplored_branches": [
+      {
+       "branch_id": "aib_0aebbd7735749fe3343b00854aa50a8d6cacca2154c22da9ff6e140b8222bb9e",
+       "reason": "format-specific-analysis-required",
+       "detail": "extract_artifact was not run by provider-neutral artifact inspection.",
+       "next_probe": {
+        "operation": "extract_artifact",
+        "rationale": "Extract the stored module regions into a fresh owned directory, then inspect compatible source separately. Bytecode and source-map regions remain stored evidence; they are not decoded or executed.",
+        "authority": "artifact-bytes"
+       },
+       "evidence_id": "ev_93be3d5661d060ec3ced837698fecef1165d007337bb38f5280b911732737992"
+      }
+     ]
+    },
+    "limitation_count": 1
+   }
+  },
+  "confidence": "derived",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+   "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics."
+  ],
+  "relationship_coverage": null,
+  "locations": [
+   {
+    "kind": "artifact-path",
+    "path": "D:\\Agent\\claude-rea-work\\target\\win32-x64\\package\\claude.exe"
+   }
+  ],
+  "evidence_links": [
+   "ev_455ed5f47bccb9374a31cd0994a167a5b70593d4bf05334498cee425d415af35"
+  ],
+  "caller_input_path": "target/win32-x64/package/claude.exe"
+ },
+ "evidence_bundle": {
+  "path": "D:\\Agent\\claude-rea-work\\evidence\\inspect-artifact.bundle",
+  "bytes": 10308843
+ }
+}
